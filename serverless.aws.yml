@@ -1,0 +1,62 @@
+service: satheler-survey
+
+provider:
+  name: aws
+  region: ${opt:region, 'sa-east-1'}
+  stage: ${opt:stage, 'develop'}
+  runtime: nodejs14.x
+  stackName: ${self:provider.stage}-${self:service}
+  apiName: ${self:provider.stage}-${self:service}
+  timeout: 10
+  memorySize: 256
+  versionFunctions: false
+  tracing:
+    apiGateway: true
+    lambda: true
+  environment:
+    NODE_ENV: development
+    PORT: 3333
+    HOST: localhost
+    APP_KEY: TVTj8OCKxhHhHWeyZHkVhK1TPL7ghIK9
+
+functions:
+  app:
+    handler: build/serverlessizer.handle
+    layers:
+      - { Ref: NodeModulesLambdaLayer }
+    events:
+      - http:
+          cors: true
+          path: '/'
+          method: any
+      - http:
+          cors: true
+          path: '{proxy+}'
+          method: any
+
+package:
+  patterns:
+    - 'build/**'
+    - '!node_modules/**'
+    - '!.github/**'
+    - '!.vscode/**'
+    - '!app/**'
+    - '!commands/**'
+    - '!config/**'
+    - '!contracts/**'
+    - '!database/**'
+    - '!providers/**'
+    - '!scripts/**'
+    - '!start/**'
+    - '!tests/**'
+    - '!tmp/**'
+    - '!./*'
+
+layers:
+  NodeModules:
+    name: ${self:provider.apiName}-layer
+    path: tmp/layers
+    description: "node_modules dependencies"
+
+plugins:
+  - serverless-offline

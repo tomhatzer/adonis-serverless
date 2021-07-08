@@ -12,7 +12,7 @@ process.on('uncaughtException', (reason) => {
 
 let server: Function
 
-async function bootstrapServer() {
+async function bootstrapServer () {
   const ignitor = new Ignitor(__dirname)
   const httpServer = ignitor.httpServer()
 
@@ -22,7 +22,7 @@ async function bootstrapServer() {
   httpServer.application.requirePreloads()
 
   const serverCore = httpServer.application.container.use('Adonis/Core/Server')
-  serverCore.errorHandler(httpServer.application.exceptionHandlerNamespace ?? '')
+  serverCore.errorHandler('App/Exceptions/ExceptionHandler')
   serverCore.optimize()
 
   const server = serverCore.handle.bind(serverCore)
@@ -30,7 +30,7 @@ async function bootstrapServer() {
 }
 
 export const handle = async (...args: any[]) => {
-  if (!server) {
+  if(!server) {
     server = await bootstrapServer()
   }
 

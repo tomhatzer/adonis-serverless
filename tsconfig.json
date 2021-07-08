@@ -1,32 +1,14 @@
 {
+  "extends": "./node_modules/adonis-preset-ts/tsconfig",
   "include": [
-    "**/*",
-    "./*"
+    "**/*"
   ],
   "exclude": [
     "node_modules",
     "build"
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "target": "ESNext",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
-    "noUnusedParameters": true,
-    "removeComments": true,
-    "declaration": false,
-    "lib": [
-      "ESNext"
-    ],
-    "outDir": ".build",
+    "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
     "paths": {
@@ -45,7 +27,9 @@
     },
     "types": [
       "@adonisjs/core",
-      "@adonisjs/repl"
+      "@adonisjs/repl",
+      "@adonisjs/lucid",
+      "@adonisjs/auth"
     ]
   }
 }

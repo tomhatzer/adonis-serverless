@@ -16,14 +16,16 @@ async function bootstrapServer() {
   const ignitor = new Ignitor(__dirname)
   const httpServer = ignitor.httpServer()
 
-  httpServer.application.setup()
-  httpServer.application.registerProviders()
+  await httpServer.application.setup()
+  await httpServer.application.registerProviders()
   await httpServer.application.bootProviders()
-  httpServer.application.requirePreloads()
+  await httpServer.application.requirePreloads()
+
 
   const serverCore = httpServer.application.container.use('Adonis/Core/Server')
-  serverCore.errorHandler(httpServer.application.exceptionHandlerNamespace ?? '')
+  serverCore.errorHandler('App/Exceptions/Handler')
   serverCore.optimize()
+
 
   const server = serverCore.handle.bind(serverCore)
   return server

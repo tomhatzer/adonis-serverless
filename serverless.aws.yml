@@ -21,7 +21,7 @@ provider:
 
 functions:
   app:
-    handler: build/serverlessizer.handle
+    handler: lambda.handle
     layers:
       - { Ref: NodeModulesLambdaLayer }
     events:
@@ -59,4 +59,5 @@ layers:
     description: "node_modules dependencies"
 
 plugins:
+  - serverless-plugin-typescript
   - serverless-offline

@@ -24,7 +24,7 @@
     "@adonisjs/shield": "^7.0.4",
     "@satheler/s12r": "^0.2.7",
     "execa": "^5.0.0",
-    "luxon": "^1.26.0",
+    "luxon": "^2.5.2",
     "pg": "^8.5.1",
     "phc-bcrypt": "^1.0.5",
     "proxy-addr": "^2.0.6",
